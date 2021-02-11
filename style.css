@@ -1,0 +1,279 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 200px auto 200px;
+    height: 100vh;
+}
+
+.side{
+    padding: 20px 20px 10px 20px;
+    border-right: 1px solid #0000001e;
+
+    user-select: none;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: bold 24px 'Raleway';
+}
+
+.logoImg{
+    background: url("assets/logo.svg") no-repeat;
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+}
+
+.changeTheme{
+    opacity: 0.5;
+    margin-left: auto;
+    background: url('assets/changeTheme.svg') no-repeat;
+    background-size: contain;
+    background-position: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.menu{
+    margin-top: 40px;
+    list-style-type: none;
+}
+.menu li{
+    padding: 10px 10px;
+    display: flex;
+    margin: 10px 0px;
+    font: bold 16px 'Raleway';
+    align-items: center;
+    border-radius: 10px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.menu li:hover{
+    background: #0000001e;
+}
+
+.homeIcon{
+    background: url("assets/home.svg") no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+.commIcon{
+    background: url("assets/community.svg") no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+.bookIcon{
+    background: url("assets/bookmarks.svg") no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+.upgIcon{
+    background: url("assets/upgrade.svg") no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.disabled{
+    opacity: 0.3;
+}
+
+.view{
+    height: 100vh;
+}
+
+.home{
+    padding: 20px 20px;
+}
+
+.heading{
+    display: flex;
+    flex-direction: column;
+}
+
+.home .pageTitle{
+    font: bold 28px 'Raleway';
+}
+
+.home .pageDesc{
+    margin-top: 2px;
+    font: 500 14px 'Raleway';
+    opacity: 0.5;
+}
+
+.articles{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.article{
+    display: flex;
+    flex-direction: column;
+    /* border-top: 1px solid #0000002d; */
+    border-bottom: 1px solid #0000002d;
+    padding: 0px 10px 30px 0px;
+    /* box-shadow: 0px 0px 8px #0000002d;
+    border-radius: 10px; */
+}
+
+.articleTitle{
+    margin-top: 10px;
+    font: 700 20px 'Raleway';
+}
+.articleAuthor{
+    margin-top: 3px;
+    font: 500 14px 'Raleway';
+    opacity: 0.5;
+}
+.articleText{
+    margin-top: 15px;
+    font: 400 16px 'Raleway';
+}
+
+
+/* CATEGORIES */
+
+.tecnologia{
+    padding: 3px 6px;
+    background-color: #2f59e4;
+    color: #fff;
+    font: 400 12px 'Raleway';
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+.politica{
+    padding: 3px 6px;
+    background-color: #fa4242;
+    color: #fff;
+    font: 400 12px 'Raleway';
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+.eco{
+    padding: 3px 6px;
+    background-color: #4bd475;
+    color: #fff;
+    font: 400 12px 'Raleway';
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+@media (prefers-color-scheme: dark) {
+    body{
+        background: rgb(15, 15, 15);
+        color: #fff;
+    }
+
+    .logoImg{
+        background: url("assets/logoDark.svg") no-repeat;
+        background-size: contain;
+        width: 22px;
+        height: 22px;
+    }
+
+    .changeTheme{
+        opacity: 0.5;
+        margin-left: auto;
+        background: url('assets/changeThemeDark.svg') no-repeat;
+        background-size: contain;
+        background-position: center;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .article{
+        display: flex;
+        flex-direction: column;
+        /* border-top: 1px solid #0000002d; */
+        border-bottom: 1px solid #ffffff2c;
+        padding: 0px 10px 30px 0px;
+        /* box-shadow: 0px 0px 8px #0000002d;
+        border-radius: 10px; */
+    }
+    .side{
+        padding: 20px 20px 10px 20px;
+        border-right: 1px solid #ffffff2c;
+    
+        user-select: none;
+    }
+    .menu li:hover{
+        background: #ffffff2c;
+    }
+    .homeIcon{
+        background: url("assets/homeDark.svg") no-repeat;
+        background-size: contain;
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+    }
+    .commIcon{
+        background: url("assets/communityDark.svg") no-repeat;
+        background-size: contain;
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+    }
+    .bookIcon{
+        background: url("assets/bookmarksDark.svg") no-repeat;
+        background-size: contain;
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+    }
+    .upgIcon{
+        background: url("assets/upgradeDark.svg") no-repeat;
+        background-size: contain;
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+        background-position: center;
+    }
+}
+@media (prefers-color-scheme: light) {
+    body{
+        background: #fff;
+        color: #000;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .container{
+        grid-template-columns: auto;
+    }
+    .menu{
+        margin-top: 20px;
+        display: grid;
+        grid-template-areas: 
+            'btn btn'
+            'btn btn'
+        ;
+    }
+    .menu li{
+        padding: 10px 10px;
+        display: flex;
+        /* margin: 10px 0px; */
+        font: bold 16px 'Raleway';
+        align-items: center;
+        border-radius: 10px;
+        user-select: none;
+    }
+    
+}

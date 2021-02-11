@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+    <title>Klipp</title>
+</head>
+<body>
+    <div class="container">
+        <div class="side">
+            <div class="logo">
+                <div class="logoImg"></div>
+                <span>Klipp</span>
+                <div class="changeTheme"></div>
+            </div>
+            <div class="menu">
+                <li><div class="homeIcon"></div> Home</li>
+                <li class="disabled"><div class="commIcon"></div> Community</li>
+                <li><div class="bookIcon"></div> Bookmarks</li>
+                <li class="disabled"><div class="upgIcon"></div> Upgrade</li>
+            </div>
+            <div class="user"></div>
+        </div>
+        <div class="view">
+            <div class="home">
+                <div class="heading">
+                    <span class="pageTitle">Home</span>
+                    <span class="pageDesc">Visualizza i klipp pubblicati in ordine cronologico.</span>
+                </div>
+                <div class="articles" id="articles">
+                    <!-- LIST OF LATEST ARTICLES BY FIREBASE -->
+                </div>
+            </div>
+            <div class="saved"></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-firestore.js"></script>
+    <script src="firebaseConfig.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
