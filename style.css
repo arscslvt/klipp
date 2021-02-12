@@ -261,7 +261,9 @@ body{
 }
 
 @media (prefers-color-scheme: light) {
-
+    .menu{
+        box-shadow: -4px 0px 13px #d8d8d8;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -284,7 +286,6 @@ body{
             'btn btn'
         ; */
 
-        box-shadow: -4px 0px 13px #d8d8d8;
 
         position: fixed;
         bottom: 0px;
