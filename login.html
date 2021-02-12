@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+    <title>Login to Klipp</title>
+</head>
+<body>
+    <div class="register">
+        <span>Do not have an account?</span><button id="signUp">Sign up</button>
+    </div>
+
+    <div class="active login" id="loginPage">
+        <span>Login to Klipp</span>
+        <div>
+            <input type="email" name="email" id="logemail" placeholder="e-mail">
+            <input type="password" name="password" id="logpassword" placeholder="password">
+            <span>Did you forget your password?</span>
+        </div>
+        <button id="loginBt">Get me in!</button>
+    </div>
+    <div class="login disabled" id="signupPage">
+        <span>Sign up to Klipp</span>
+        <div>
+            <input type="email" name="email" id="remail" placeholder="Type an e-mail">
+            <input type="password" name="password" id="rpassword" placeholder="Choose your password">
+        </div>
+        <button id="signBt">Sign up</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
+    <script src="firebaseConfig.js"></script>
+
+    <script src="login.js"></script>
+</body>
+</html>

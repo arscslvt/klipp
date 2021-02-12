@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    animation: fade 0.5s ease;
+}
+
+.register{
+    display: grid;
+    gap: 15px;
+    grid-template-columns: auto auto;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    align-items: center;
+    user-select: none;
+}
+
+.register span{
+    font: 600 14px 'Raleway';
+    opacity: 0.5;
+}
+
+.register button{
+    border: none;
+    border-radius: 6px;
+    outline: none;
+    padding: 6px 14px;
+
+    background-color: #0f0f0f;
+    color: #fff;
+
+    font: 600 13px 'Raleway';
+
+    cursor: pointer;
+
+    transition: 0.12s ease;
+}
+.register button:hover{
+    background-color: #d6d6d6;
+    color: #0f0f0f;
+}
+
+.active{
+    display: flex;
+}
+.disabled{
+    display: none;
+}
+
+.login{
+    width: 400px;
+    /* display: none; */
+    flex-direction: column;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border-left: 3px solid #0f0f0f;
+
+    padding: 10px 0px 10px 30px;
+
+    animation: fade 0.4s ease;
+}
+
+.login span{
+    font: 700 25px 'Raleway';
+}
+
+.login div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: grid;
+    gap: 10px;
+}
+
+.login div input{
+    outline: none;
+    border: 1px solid #00000041;
+    border-radius: 6px;
+    padding: 7px 8px;
+}
+.login div input:focus{
+    border: 1px solid #000000b2;
+}
+
+.login div span{
+    font: 600 13px 'Raleway';
+    opacity: 0.5;
+    user-select: none;
+    cursor: pointer;
+}
+.login div span:hover{
+    opacity: 0.8;
+}
+
+.login button{
+    border: 2px solid #000;
+    outline: none;
+    border-radius: 6px;
+
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 7px 0px;
+
+    background-color: #000;
+    color: #fff;
+
+    font: 600 14px 'Raleway';
+    
+    cursor: pointer;
+
+    transition: 0.1s ease;
+}
+
+.login button:hover{
+    background-color: #fff;
+    color: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+    body{
+        background: #0f0f0f;
+        color: #ffffff;
+    }
+
+    .register button{
+        background-color: #242424;
+    }
+
+    .login{
+        border-left: 2px solid #fff;
+    }
+
+    .login div input{
+        background-color: #242424;
+        color: #fff;
+    }
+    
+    .login button{
+        background-color: #242424;
+        color: #fff;
+        border: 2px solid #242424;
+    }
+    .login button:hover{
+        background: #0f0f0f;
+        color: #fff;
+        border: 2px solid #fff;
+    }    
+}
+
+@media only screen and (max-width: 600px) {
+
+    .login{
+        width: 280px;
+        border: none;
+        padding: 10px 10px;
+    }
+
+}
+
+@keyframes fade{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
