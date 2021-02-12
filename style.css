@@ -5,6 +5,10 @@
     padding: 0;
 }
 
+body{
+    scroll-behavior: smooth;
+}
+
 .container{
     display: grid;
     grid-template-columns: 200px auto 200px;
@@ -33,18 +37,20 @@
 }
 
 .changeTheme{
+    display: none;
     opacity: 0.5;
     margin-left: auto;
-    background: url('assets/changeTheme.svg') no-repeat;
+    background: url('assets/goToTop.svg') no-repeat;
     background-size: contain;
     background-position: center;
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
 }
 
 .menu{
     margin-top: 40px;
     list-style-type: none;
+    background-color: #fff;
 }
 .menu li{
     padding: 10px 10px;
@@ -194,10 +200,10 @@
     .changeTheme{
         opacity: 0.5;
         margin-left: auto;
-        background: url('assets/changeThemeDark.svg') no-repeat;
+        background: url('assets/goToTopDark.svg') no-repeat;
         background-size: contain;
         background-position: center;
-        padding: 10px;
+        padding: 12px;
         cursor: pointer;
     }
 
@@ -215,6 +221,10 @@
         border-right: 1px solid #ffffff2c;
     
         user-select: none;
+    }
+    .menu{
+        background-color: #0f0f0f;
+        box-shadow: -4px 0px 13px #2e2e2e;
     }
     .menu li:hover{
         background: #ffffff2c;
@@ -249,17 +259,23 @@
         background-position: center;
     }
 }
+
 @media (prefers-color-scheme: light) {
-    body{
-        background: #fff;
-        color: #000;
-    }
+
 }
 
 @media only screen and (max-width: 600px) {
     .container{
         grid-template-columns: auto;
     }
+
+    .changeTheme{
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+    }
+
     .menu{
         /* margin-top: 20px;
         display: grid;
@@ -267,6 +283,8 @@
             'btn btn'
             'btn btn'
         ; */
+
+        box-shadow: -4px 0px 13px #d8d8d8;
 
         position: fixed;
         bottom: 0px;
@@ -276,8 +294,6 @@
         grid-template-columns: auto auto auto auto;
 
         width: 100vw;
-
-        background-color: #0f0f0f;
 
         z-index: 10;
     }

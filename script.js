@@ -54,3 +54,26 @@ function getArticles(data){
 
     document.getElementById("articles").appendChild(article);
 }
+
+
+// STATIC FUNCTIONS
+const toTop = document.getElementById("toTop");
+
+window.addEventListener("scroll", function(){
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        toTop.style.display = "block";
+      } else {
+        toTop.style.display = "none";
+      }
+})
+
+toTop.addEventListener("click", function(){
+    document.body.scrollTo({    //for Safari
+        top: 0,
+        behavior: 'smooth'
+    })
+    document.documentElement.scrollTo({  // For Chrome, Firefox, IE and Opera
+        top: 0,
+        behavior: 'smooth'
+    }) 
+})
