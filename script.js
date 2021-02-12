@@ -16,40 +16,28 @@ db.collection("articles").get().then((querySnapshot) => {
 
 function getArticles(data){
     var article = document.createElement("div");
-    var catP = document.createElement("p");
-    var cat = document.createElement("span");
     var title = document.createElement("span");
+    var by = document.createElement("div");
+    var profilePicture = document.createElement("img");
     var author = document.createElement("span");
     var text = document.createElement("span");
 
-    article.appendChild(catP);
-    catP.appendChild(cat);
+    by.appendChild(profilePicture);
+    by.appendChild(author);
+    article.appendChild(by);
     article.appendChild(title);
-    article.appendChild(author);
     article.appendChild(text);
 
-    cat.innerHTML = data.cat;
     title.innerHTML = data.title;
-    author.innerHTML = "di " + data.author;
+    author.innerHTML = data.author;
     text.innerHTML = data.text;
 
-    console.log(data.cat);
-
-    switch(data.cat){
-        case 'tecnologia':
-            cat.classList = "tecnologia";
-        break;
-        case 'politica':
-            cat.classList = "politica";
-        break;
-        case 'eco':
-            cat.classList = "eco";
-        break;
-
-    }
+    profilePicture.src = "assets/noUserImage.png";
+    by.classList = "articleBy";
+    author.classList = "articleAuthor";
     article.classList = "article";
     title.classList = "articleTitle";
-    author.classList = "articleAuthor";
+    
     text.classList = "articleText";
 
     document.getElementById("articles").appendChild(article);

@@ -148,43 +148,32 @@ body{
     margin-top: 10px;
     font: 700 20px 'Raleway';
 }
+
+.articleBy{
+    display: grid;
+    grid-template-columns: 30px auto;
+    gap: 10px;
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+.articleBy img{
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+}
+
 .articleAuthor{
     margin-top: 3px;
-    font: 500 14px 'Raleway';
-    opacity: 0.5;
+    font: 600 14px 'Raleway';
+    opacity: 0.8;
 }
 .articleText{
     margin-top: 15px;
     font: 400 16px 'Raleway';
 }
 
-
-/* CATEGORIES */
-
-.tecnologia{
-    padding: 3px 6px;
-    background-color: #2f59e4;
-    color: #fff;
-    font: 400 12px 'Raleway';
-    border-radius: 6px;
-    text-transform: uppercase;
-}
-.politica{
-    padding: 3px 6px;
-    background-color: #fa4242;
-    color: #fff;
-    font: 400 12px 'Raleway';
-    border-radius: 6px;
-    text-transform: uppercase;
-}
-.eco{
-    padding: 3px 6px;
-    background-color: #4bd475;
-    color: #fff;
-    font: 400 12px 'Raleway';
-    border-radius: 6px;
-    text-transform: uppercase;
-}
 
 @media (prefers-color-scheme: dark) {
     body{
