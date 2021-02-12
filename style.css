@@ -103,6 +103,7 @@ body{
 
 .view{
     height: 100vh;
+    /* margin-bottom: 50px; */
 }
 
 .home{
@@ -126,6 +127,7 @@ body{
 
 .articles{
     margin-top: 30px;
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
 
@@ -224,7 +226,6 @@ body{
     }
     .menu{
         background-color: #0f0f0f;
-        box-shadow: -4px 0px 13px #2e2e2e;
     }
     .menu li:hover{
         background: #ffffff2c;
@@ -261,9 +262,7 @@ body{
 }
 
 @media (prefers-color-scheme: light) {
-    .menu{
-        box-shadow: -4px 0px 13px #d8d8d8;
-    }
+
 }
 
 @media only screen and (max-width: 600px) {
@@ -291,10 +290,14 @@ body{
         bottom: 0px;
         left: 0px;
 
+        padding: 0px 0px 10px 0px;
+
         display: grid;
         grid-template-columns: auto auto auto auto;
 
         width: 100vw;
+
+        border-top: 1px solid #88888865;
 
         z-index: 10;
     }
