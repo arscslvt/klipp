@@ -28,9 +28,9 @@ function getArticles(data){
     article.appendChild(title);
     article.appendChild(text);
 
-    title.innerHTML = data.title;
-    author.innerHTML = data.author;
-    text.innerHTML = data.text;
+    title.innerText = data.title;
+    author.innerText = data.author;
+    text.innerText = data.text;
 
     profilePicture.src = "assets/noUserImage.png";
     by.classList = "articleBy";
