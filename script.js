@@ -80,6 +80,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     installApp.style.display = 'block';
   
     installApp.addEventListener('click', (e) => {
+      alert("Add to home");
       // hide our user interface that shows our A2HS button
       installApp.style.display = 'none';
       // Show the prompt
