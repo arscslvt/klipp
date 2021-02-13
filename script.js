@@ -210,12 +210,14 @@ var newText = document.getElementById("text");
 var newPublish = document.getElementById("publish");
 
 newTitle.addEventListener("click", function(){
+    newTitle.setAttribute("placeholder", "Choose a title");
     newText.style.display = 'initial';
     newPublish.style.display = 'initial';
 })
 
 newTitle.addEventListener("focusout", function(){
     if(newTitle.value == ""){
+        newTitle.setAttribute("placeholder", "Write a new post...");
         newText.style.display = 'none';
         newPublish.style.display = 'none';
     }
