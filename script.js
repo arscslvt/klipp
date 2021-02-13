@@ -68,7 +68,7 @@ toTop.addEventListener("click", function(){
 
 let deferredPrompt;
 const installApp = document.querySelector('#installApp');
-installApp.style.display = 'none';
+//installApp.style.display = 'none';
 
 window.addEventListener('beforeinstallprompt', (e) => {
     alert("install");
