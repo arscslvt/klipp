@@ -390,6 +390,22 @@ body{
         margin-right: 10px;
         background-position: center;
     }
+
+    .newPost input{
+        background-color: #2b2b2b;
+        color: #fff;
+        border: none;
+    }
+    .newPost textarea{
+        background-color: #2b2b2b;
+        color: #fff;
+        border: none;
+    }
+
+    .newPost button{
+        background-color: #fff;
+        color: #0f0f0f;
+    }
 }
 
 @media (prefers-color-scheme: light) {
