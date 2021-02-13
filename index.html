@@ -6,21 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+    <!-- <link rel="manifest" href="manifest.json"> -->
     <title>Klipp</title>
 </head>
 <body>
+    <!-- <button id="installApp">↓ Install App</button> -->
     <div class="container">
         <div class="side">
             <div class="logo">
                 <div class="logoImg"></div>
-                <span>Klipp</span>
-                <div class="changeTheme" id="toTop"></div>
+                <span>lipp</span>
             </div>
+            <div class="toTop" id="toTop"></div>
+
             <div class="menu">
                 <li><div class="homeIcon"></div><span>Home</span></li>
-                <li class="disabled"><div class="commIcon"></div><span>New klipp</span></li>
-                <li><div class="bookIcon"></div><span>Bookmarks</span></li>
-                <li class="disabled"><div class="upgIcon"></div><span>Upgrade</span></li>
+                <!-- <li class="newKlipp"><div class="commIcon"></div><span>New klipp</span></li> -->
+                <li class="disabled"><div class="bookIcon"></div><span>Bookmarks</span></li>
+                <li><img src="" id="userImage"><span id="username"></span></li>
+                <li id="logoutBt"><div class="upgIcon"></div><span>Logout</span></li>
             </div>
             <div class="user"></div>
         </div>
@@ -28,7 +32,12 @@
             <div class="home">
                 <div class="heading">
                     <span class="pageTitle">Home</span>
-                    <span class="pageDesc">Visualizza i klipp pubblicati in ordine cronologico.</span>
+                    <span class="pageDesc">Latest klipps ↓</span>
+                </div>
+                <div class="newPost">
+                    <input type="text" name="title" id="title" placeholder="Create a title">
+                    <textarea type="text" name="text" id="text" placeholder="Type something to say..."></textarea>
+                    <button id="publish">Publish</button>
                 </div>
                 <div class="articles" id="articles">
                     <!-- LIST OF LATEST ARTICLES BY FIREBASE -->
@@ -36,11 +45,13 @@
             </div>
             <div class="saved"></div>
         </div>
+    
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-storage.js"></script>
     <script src="firebaseConfig.js"></script>
 
     <script src="script.js"></script>

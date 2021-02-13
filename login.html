@@ -13,18 +13,22 @@
         <span>Do not have an account?</span><button id="signUp">Sign up</button>
     </div>
 
+    <div class="loading" id="loading"></div>
+
     <div class="active login" id="loginPage">
         <span>Login to Klipp</span>
         <div>
             <input type="email" name="email" id="logemail" placeholder="e-mail">
             <input type="password" name="password" id="logpassword" placeholder="password">
-            <span>Did you forget your password?</span>
+            <span id="forgetPass">Did you forget your password?</span>
         </div>
         <button id="loginBt">Get me in!</button>
     </div>
     <div class="login disabled" id="signupPage">
         <span>Sign up to Klipp</span>
         <div>
+            <input type="text" name="name" id="rname" placeholder="First name">
+            <input type="text" name="surname" id="rsurname" placeholder="Second name">
             <input type="email" name="email" id="remail" placeholder="Type an e-mail">
             <input type="password" name="password" id="rpassword" placeholder="Choose your password">
         </div>
@@ -32,6 +36,7 @@
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
     <script src="firebaseConfig.js"></script>
 

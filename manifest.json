@@ -1,0 +1,15 @@
+{
+    "background_color": "white",
+    "description": "Klipp web app: social network",
+    "display": "fullscreen",
+    "icons": [
+      {
+        "src": "assets/logo.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "name": "Klipp",
+    "short_name": "Klipp",
+    "start_url": "/index.html"
+  }

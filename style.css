@@ -15,28 +15,47 @@ body{
     height: 100vh;
 }
 
+#installApp{
+    border: 1px solid #000;
+    outline: none;
+    border-radius: 6px;
+
+    background-color: #fff;
+    color: #000;
+    font: bold 13px 'Raleway';
+
+    padding: 4px 9px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    cursor: pointer;
+}
+
 .side{
     padding: 20px 20px 10px 20px;
-    border-right: 1px solid #0000001e;
-
     user-select: none;
+
+    /* position: fixed; */
 }
 
 .logo{
-    display: flex;
+    display: grid;
+    grid-template-columns: 13px auto;
     align-items: center;
-    gap: 10px;
+    /* gap: 10px; */
     font: bold 24px 'Raleway';
 }
 
 .logoImg{
     background: url("assets/logo.svg") no-repeat;
     background-size: contain;
-    width: 22px;
-    height: 22px;
+    width: 12px;
+    height: 17px;
+    /* border: 1px solid red; */
 }
 
-.changeTheme{
+.toTop{
     display: none;
     opacity: 0.5;
     margin-left: auto;
@@ -45,6 +64,7 @@ body{
     background-position: center;
     padding: 12px;
     cursor: pointer;
+    z-index: 10;
 }
 
 .menu{
@@ -66,6 +86,8 @@ body{
 .menu li:hover{
     background: #0000001e;
 }
+
+/* MENU ICONS */
 
 .homeIcon{
     background: url("assets/home.svg") no-repeat;
@@ -89,13 +111,22 @@ body{
     margin-right: 10px;
 }
 .upgIcon{
-    background: url("assets/upgrade.svg") no-repeat;
+    background: url("assets/logout.svg") no-repeat;
     background-size: contain;
     background-position: center;
     width: 15px;
     height: 15px;
     margin-right: 10px;
 }
+
+#userImage{
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    margin-right: 10px;
+}
+
+/* MENU ICONS */
 
 .disabled{
     opacity: 0.3;
@@ -104,6 +135,8 @@ body{
 .view{
     height: 100vh;
     /* margin-bottom: 50px; */
+    border-left: 1px solid #0000001e;
+    overflow-y: scroll;
 }
 
 .home{
@@ -126,7 +159,7 @@ body{
 }
 
 .articles{
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
@@ -174,6 +207,115 @@ body{
     font: 500 16px 'Raleway';
 }
 
+.articleControls{
+    width: 150px;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: 15px;
+}
+
+.controlsLike{
+    display: flex;
+    padding: 5px 5px 5px 25px;
+    background: url("assets/lightLike.svg") no-repeat;
+    background-size: contain;
+    background-position: left;
+
+    width: 10px;
+    height: 10px;
+
+    align-items: center;
+    font: 500 16px 'Raleway';
+
+    user-select: none;
+    cursor: pointer;
+
+    /* border: 1px solid red; */
+}
+.controlsComment{
+    display: flex;
+    padding: 5px 5px 5px 25px;
+    background: url("assets/lightComment.svg") no-repeat;
+    background-size: contain;
+    background-position: left;
+
+    width: 10px;
+    height: 10px;
+
+    align-items: center;
+    font: 500 16px 'Raleway';
+
+    user-select: none;
+    cursor: pointer;
+
+    /* border: 1px solid red; */
+}
+
+.newPost{
+    margin-top: 20px;
+    display: grid;
+    gap: 5px;
+    grid-template-rows: auto auto auto auto;
+}
+.newPost span{
+    font: 600 16px 'Raleway';   
+}
+
+.newPost input{
+    outline: none;
+    border: 1px solid #88888865;
+    border-radius: 6px;
+    padding: 5px 5px;
+    font: 600 14px 'Raleway';   
+}
+
+.newPost textarea{
+    display: none;
+    outline: none;
+    border: 1px solid #88888865;
+    border-radius: 6px;
+    padding: 5px 5px;
+    resize: none;
+    height: 60px;
+
+    font: 500 14px 'Raleway'; 
+
+    animation: fadeIn 0.2s ease;
+}
+
+.newPost button{
+    display: none;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    width: 100px;
+    margin-top: 5px;
+    margin-left: auto;
+    font: 600 13px 'Raleway'; 
+
+    background-color: #0f0f0f;
+    color: #fff;
+    user-select: none;
+
+    cursor: pointer;
+
+    animation: fadeIn 0.4s ease;
+}
+.newPost button:hover{
+    opacity: 0.7;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+        margin-top: -20px;
+    }
+    to{
+        opacity: 1;
+        margin-top: 0px;
+    }
+}
 
 @media (prefers-color-scheme: dark) {
     body{
@@ -184,11 +326,11 @@ body{
     .logoImg{
         background: url("assets/logoDark.svg") no-repeat;
         background-size: contain;
-        width: 22px;
-        height: 22px;
+        width: 12px;
+        height: 17px;
     }
 
-    .changeTheme{
+    .toTop{
         opacity: 0.5;
         margin-left: auto;
         background: url('assets/goToTopDark.svg') no-repeat;
@@ -241,7 +383,7 @@ body{
         margin-right: 10px;
     }
     .upgIcon{
-        background: url("assets/upgradeDark.svg") no-repeat;
+        background: url("assets/logoutDark.svg") no-repeat;
         background-size: contain;
         width: 15px;
         height: 15px;
@@ -259,7 +401,7 @@ body{
         grid-template-columns: auto;
     }
 
-    .changeTheme{
+    .toTop{
         display: none;
         position: fixed;
         top: 20px;
@@ -282,7 +424,7 @@ body{
         padding: 0px 0px 10px 0px;
 
         display: grid;
-        grid-template-columns: auto auto auto auto;
+        grid-template-columns: auto auto auto auto auto;
 
         width: 100vw;
 
@@ -305,4 +447,7 @@ body{
         display: none;
     }
     
+    .view{
+        overflow-y: unset;
+    }
 }
