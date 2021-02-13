@@ -424,7 +424,7 @@ body{
         padding: 0px 0px 10px 0px;
 
         display: grid;
-        grid-template-columns: auto auto auto auto auto;
+        grid-template-columns: auto auto auto auto;
 
         width: 100vw;
 
