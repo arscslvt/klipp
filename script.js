@@ -71,7 +71,7 @@ const installApp = document.querySelector('#installApp');
 installApp.style.display = 'none';
 
 window.addEventListener('beforeinstallprompt', (e) => {
-    console.log("install");
+    alert("install");
     // Prevent Chrome 67 and earlier from automatically showing the prompt
     e.preventDefault();
     // Stash the event so it can be triggered later.
