@@ -15,6 +15,23 @@ body{
     height: 100vh;
 }
 
+#installApp{
+    border: 1px solid #000;
+    outline: none;
+    border-radius: 6px;
+
+    background-color: #fff;
+    color: #000;
+    font: bold 13px 'Raleway';
+
+    padding: 4px 9px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    cursor: pointer;
+}
+
 .side{
     padding: 20px 20px 10px 20px;
     border-right: 1px solid #0000001e;
