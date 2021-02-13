@@ -9,6 +9,30 @@ body{
     animation: fade 0.5s ease;
 }
 
+.loading{
+    display: none;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+
+    background: url("assets/loading.svg") no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+
+    animation: rotate 0.8s infinite;
+}
+
+@keyframes rotate{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
 .register{
     display: grid;
     gap: 15px;

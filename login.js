@@ -32,7 +32,8 @@ document.getElementById("loginBt").addEventListener("click", function(){
     .then((userCredential) => {
         // Signed in
         var user = userCredential.user;
-        // alert("signedIn")
+        loading.style.display = "none";
+        window.location.assign("index.html");
     })
     .catch((error) => {
         loading.style.display = "none";
