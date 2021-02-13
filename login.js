@@ -53,10 +53,6 @@ document.getElementById("signBt").addEventListener("click", function(){
 
     loading.style.display = "initial";
 
-    let data = {
-        
-    }
-
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
         // Signed in 
@@ -83,18 +79,18 @@ document.getElementById("signBt").addEventListener("click", function(){
     });
 })
 
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        // User is signed in
-        uid = user.uid;
-        console.log("logged: " + uid);
-        loading.style.display = "none";
-        window.location.assign("index.html");
-    } else {
-      // User is signed out
+// firebase.auth().onAuthStateChanged((user) => {
+//     if (user) {
+//         // User is signed in
+//         uid = user.uid;
+//         console.log("logged: " + uid);
+//         loading.style.display = "none";
+//         window.location.assign("index.html");
+//     } else {
+//       // User is signed out
       
-    }
-});
+//     }
+// });
 
 function passwordReset(){
     var auth = firebase.auth();
