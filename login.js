@@ -32,7 +32,7 @@ document.getElementById("loginBt").addEventListener("click", function(){
     .then((userCredential) => {
         // Signed in
         var user = userCredential.user;
-        alert("signedIn")
+        // alert("signedIn")
     })
     .catch((error) => {
         loading.style.display = "none";
