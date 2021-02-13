@@ -25,7 +25,7 @@ body{
     font: bold 13px 'Raleway';
 
     padding: 4px 9px;
-    position: fixed;
+    position: absolute;
     top: 20px;
     right: 20px;
 
