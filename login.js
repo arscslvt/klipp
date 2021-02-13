@@ -54,17 +54,25 @@ document.getElementById("signBt").addEventListener("click", function(){
     loading.style.display = "initial";
 
     let data = {
-        name: name,
-        surname: surname,
-        email: email,
-        userImage: "generic/noUserImage.png"
+        
     }
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
         // Signed in 
         var user = userCredential.user;
-        let setDoc = db.collection("users").doc(user.uid).set(data);
+        db.collection("users").doc(user.uid).set({
+            name: name,
+            surname: surname,
+            email: email,
+            userImage: "generic/noUserImage.png"
+        })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
         alert("Hi " + name + ", go to login to access Klipp.");
         // ...
     })
