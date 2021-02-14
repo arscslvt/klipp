@@ -59,7 +59,18 @@ function getArticles(data, id){
     var hour = dateTime.getHours();
     var minute = dateTime.getMinutes();
 
-    date.innerText = day + "-" + month + "-" + year + " at " + hour + ":" + minute,
+    // console.log("date: "+data.date.toMillis());
+    var d = new Date(data.date.toMillis());
+    var nowDate = 
+        ("0" + d.getDate()).slice(-2) + '-' +
+        ("0" + (d.getMonth()+1)).slice(-2) + '-' + 
+        d.getFullYear() + ' at ' +
+        d.getHours() + ':' +
+        d.getMinutes()
+    ;
+
+    // date.innerText = day + "-" + month + "-" + year + " at " + hour + ":" + minute,
+    date.innerText = nowDate,
     text.innerText = data.text;
     likeCount.innerText = data.like;
     commentCount.innerText = data.like;
