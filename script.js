@@ -22,7 +22,9 @@ function getArticles(data, id){
     var title = document.createElement("span");
     var by = document.createElement("div");
     var profilePicture = document.createElement("img");
+    var fromDiv = document.createElement("div");
     var author = document.createElement("span");
+    var date = document.createElement("span");
     var text = document.createElement("span");
     var control = document.createElement("div");
     var like = document.createElement("div");
@@ -32,7 +34,9 @@ function getArticles(data, id){
 
 
     by.appendChild(profilePicture);
-    by.appendChild(author);
+    fromDiv.appendChild(author);
+    fromDiv.appendChild(date);
+    by.appendChild(fromDiv);
     control.appendChild(like);
     like.appendChild(likeCount);
     control.appendChild(comment);
@@ -44,13 +48,25 @@ function getArticles(data, id){
 
     title.innerText = data.title;
     author.innerText = data.author;
+
+    // Getting Date and time
+    var dateTime = new Date(data.date.toMillis());
+    var day = dateTime.getDate();
+    var month = dateTime.getMonth();
+    var year = dateTime.getFullYear();
+    var hour = dateTime.getHours();
+    var minute = dateTime.getMinutes();
+
+    date.innerText = day + "-" + month + "-" + year + " at " + hour + ":" + minute,
     text.innerText = data.text;
     likeCount.innerText = data.like;
     commentCount.innerText = data.like;
 
     profilePicture.src = "assets/noUserImage.png";
     by.classList = "articleBy";
+    fromDiv.classList = "articleFrom";
     author.classList = "articleAuthor";
+    date.classList = "articleDate";
     article.classList = "article";
     title.classList = "articleTitle";
     control.classList = "articleControls";
@@ -229,12 +245,14 @@ newPublish.addEventListener("click", function(){
     var docRef = db.collection("users").doc(user.uid);
 
     var currentdate = new Date();
-    var datetime = currentdate.getDate() + "/"
-                    + (currentdate.getMonth()+1)  + "/" 
-                    + currentdate.getFullYear() + " "  
+    var datetime = currentdate.getDate() + "-"
+                    + (currentdate.getMonth()+1)  + "-" 
+                    + currentdate.getFullYear() + "T"  
                     + currentdate.getHours() + ":"  
                     + currentdate.getMinutes() + ":" 
                     + currentdate.getSeconds();
+
+    console.log(datetime);
 
     docRef.get().then((doc) => {
         if (doc.exists) {
@@ -244,7 +262,7 @@ newPublish.addEventListener("click", function(){
                 title: newTitle.value,
                 text: newText.value,
                 like: 0,
-                date: datetime
+                date: firebase.firestore.FieldValue.serverTimestamp()
             })
             .then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);

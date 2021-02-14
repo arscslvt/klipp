@@ -197,10 +197,22 @@ body{
     border-radius: 100px;
 }
 
+.articleFrom{
+    display: grid;
+    grid-template-rows: auto auto;
+    /* gap: 3px; */
+    align-items: center;
+}
+
 .articleAuthor{
     margin-top: 3px;
     font: 600 14px 'Raleway';
     opacity: 0.8;
+}
+.articleDate{
+    margin-top: 3px;
+    font: 500 13px 'Raleway';
+    opacity: 0.5;
 }
 .articleText{
     margin-top: 15px;
