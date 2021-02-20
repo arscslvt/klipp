@@ -477,7 +477,14 @@ function setUserImage(myImage){
             userImage: filename
         })
 
-        window.location.reload();
+        var storageRef = firebase.storage();    
+        var pathReference = storageRef.ref('/' + user + '/' + doc.data().userImage);
+        //var starsRef = storageRef.child('/' + user + '/profilePicture/' + file.name);
+
+        // Get the download URL
+        pathReference.getDownloadURL().then(function(url) {
+            myImage.src = url;
+        });
     }
     input.click()
 }
