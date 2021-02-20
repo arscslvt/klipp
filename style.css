@@ -409,6 +409,10 @@ body{
         background-color: #141414;
         border: none;
     }
+
+    .articleText{
+        color: #fff;
+    }
     .side{
         padding: 20px 20px 10px 20px;
         /* border-right: 1px solid #ffffff2c; */
