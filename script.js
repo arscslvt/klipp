@@ -445,6 +445,8 @@ function setUserSettings(myImage, myName, mySurname, myBirth, myNat, myCity, myP
         bio: myBio.value
     })
     .then(() => {
+        alert("Settings updated.");
+        window.location.reload();
         console.log("User settings updated.");
     })
     .catch((error) => {
