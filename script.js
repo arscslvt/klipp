@@ -135,7 +135,7 @@ function getArticles(data, id, aut){
             var length = doc.data().likers.length;
             for(i=0; i<length; i++){
                 if(doc.data().likers[i] == nowUser.uid){
-                    like.style.backgroundColor = "#FF5151";
+                    like.style.backgroundColor = "#3864FF";
                     like.style.opacity = 1;
                 }else{
                     like.style.backgroundColor = "#2b2b2b";
