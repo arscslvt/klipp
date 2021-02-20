@@ -438,7 +438,7 @@ function setUserSettings(myImage, myName, mySurname, myBirth, myNat, myCity, myP
     db.collection("users").doc(firebase.auth().currentUser.uid).update({
         name: myName.value,
         surname: mySurname.value,
-        birth: firebase.firestore.Timestamp.fromDate(new Date(myBirth.value)),
+        // birth: firebase.firestore.Timestamp.fromDate(new Date(myBirth.value)),
         nat: myNat.value,
         city: myCity.value,
         phone: myPhone.value,
