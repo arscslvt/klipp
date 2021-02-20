@@ -229,7 +229,8 @@ body{
 .articleText{
     margin-top: 5px;
     font: 400 16px 'Raleway';
-    opacity: 0.8;
+    color: #222222;
+    opacity: 1;
 }
 
 .articleControls{
