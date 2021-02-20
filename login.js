@@ -62,13 +62,20 @@ document.getElementById("signBt").addEventListener("click", function(){
             name: name,
             surname: surname,
             email: email,
-            userImage: "generic/noUserImage.png"
+            userImage: "generic/noUserImage.png",
+            bio: "",
+            nat: "",
+            city: "",
+            birth: "",
+            phone: "",
         })
         .then(() => {
             console.log("Document successfully written!");
+            loading.style.display = "none";
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
+            loading.style.display = "none";
         });
         alert("Hi " + name + ", go to login to access Klipp.");
         // ...

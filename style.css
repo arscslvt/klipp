@@ -11,8 +11,12 @@ body{
 
 .container{
     display: grid;
-    grid-template-columns: 200px auto 200px;
+    grid-template-columns: 200px auto;
     height: 100vh;
+    width: 85%;
+    /* border: 1px solid red; */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #installApp{
@@ -119,11 +123,23 @@ body{
     margin-right: 10px;
 }
 
-#userImage{
+.myImage{
     width: 20px;
     height: 20px;
     border-radius: 50px;
     margin-right: 10px;
+    object-fit: cover;
+}
+.myIndexImage{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.uploadIcon{
+    display: none;
 }
 
 /* MENU ICONS */
@@ -135,7 +151,6 @@ body{
 .view{
     height: 100vh;
     /* margin-bottom: 50px; */
-    border-left: 1px solid #0000001e;
     overflow-y: scroll;
 }
 
@@ -159,7 +174,7 @@ body{
 }
 
 .articles{
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
@@ -168,33 +183,28 @@ body{
 }
 
 .article{
+    /* width: 60%; */
     display: flex;
     flex-direction: column;
-    /* border-top: 1px solid #0000002d; */
-    border-bottom: 1px solid #0000002d;
-    padding: 0px 10px 30px 0px;
-    /* box-shadow: 0px 0px 8px #0000002d;
-    border-radius: 10px; */
+    padding: 10px 10px 10px 10px;
+    border: 1px solid #00000015;
+    margin-top: 10px;
+    box-shadow: 0px 0px 10px solid #000000;
+    border-radius: 10px;
 }
 
 .articleTitle{
     margin-top: 10px;
-    font: 700 20px 'Raleway';
+    font: 800 22px 'Raleway';
 }
 
 .articleBy{
     display: grid;
-    grid-template-columns: 30px auto;
+    grid-template-columns: 45px auto;
     gap: 10px;
     align-items: center;
 
     margin-bottom: 10px;
-}
-
-.articleBy img{
-    width: 30px;
-    height: 30px;
-    border-radius: 100px;
 }
 
 .articleFrom{
@@ -206,8 +216,9 @@ body{
 
 .articleAuthor{
     margin-top: 3px;
-    font: 600 14px 'Raleway';
+    font: 600 16px 'Raleway';
     opacity: 0.8;
+    cursor: pointer;
 }
 .articleDate{
     margin-top: 3px;
@@ -215,41 +226,52 @@ body{
     opacity: 0.5;
 }
 .articleText{
-    margin-top: 15px;
-    font: 500 16px 'Raleway';
+    margin-top: 5px;
+    font: 400 16px 'Raleway';
+    opacity: 0.8;
 }
 
 .articleControls{
     width: 150px;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 60px auto;
     margin-top: 15px;
+    align-items: center;
 }
 
 .controlsLike{
     display: flex;
-    padding: 5px 5px 5px 25px;
-    background: url("assets/lightLike.svg") no-repeat;
-    background-size: contain;
-    background-position: left;
+    padding: 8px 7px 8px 30px;
+    background: url("assets/darkLike.svg") no-repeat;
+    background-color: #2b2b2b;
+    background-size: 18px;
+    background-position: 7px;
+    border-radius: 20px;
+    color: #fff;
 
     width: 10px;
     height: 10px;
 
     align-items: center;
-    font: 500 16px 'Raleway';
+    font: 400 16px 'Raleway';
 
     user-select: none;
     cursor: pointer;
+
+    transition: 0.3s ease;
+
+    opacity: 0.5;
 
     /* border: 1px solid red; */
 }
-.controlsComment{
-    display: flex;
-    padding: 5px 5px 5px 25px;
-    background: url("assets/lightComment.svg") no-repeat;
-    background-size: contain;
-    background-position: left;
+.controlsTrash{
+    display: block;
+    padding: 7px;
+    background: url("assets/trash.svg") no-repeat;
+    background-size: 10px;
+    background-position: center;
+    background-color: #2b2b2b;
+    border-radius: 20px;
 
     width: 10px;
     height: 10px;
@@ -260,15 +282,40 @@ body{
     user-select: none;
     cursor: pointer;
 
+    transition: 0.1s ease;
+
+    opacity: 0.5;
+
     /* border: 1px solid red; */
+}
+.controlsTrash:hover{
+    background-color: #FF5151;
+    opacity: 1;
 }
 
 .newPost{
-    margin-top: 20px;
+    width: 60%;
+    margin-top: 30px;
     display: grid;
-    gap: 5px;
-    grid-template-rows: auto auto auto auto;
+    gap: 10px;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 45px auto;
+    align-items: center;
 }
+
+.userImage{
+    width: 45px;
+    height: 45px;
+
+    background-color: #fff;
+    object-fit: cover;
+    /* background-size: cover; */
+    /* background-size: initial; */
+    background-position: center;
+
+    border-radius: 100px;
+}
+
 .newPost span{
     font: 600 16px 'Raleway';   
 }
@@ -276,19 +323,21 @@ body{
 .newPost input{
     outline: none;
     border: 1px solid #88888865;
-    border-radius: 6px;
-    padding: 5px 5px;
-    font: 600 14px 'Raleway';   
+    border-radius: 10px;
+    padding: 9px 9px;
+    font: 600 16px 'Raleway'; 
+    grid-column: 2;  
 }
 
 .newPost textarea{
     display: none;
     outline: none;
     border: 1px solid #88888865;
-    border-radius: 6px;
+    border-radius: 10px;
     padding: 5px 5px;
     resize: none;
     height: 60px;
+    grid-column-end: 3;
 
     font: 500 14px 'Raleway'; 
 
@@ -299,8 +348,8 @@ body{
     display: none;
     outline: none;
     border: none;
-    border-radius: 6px;
-    padding: 5px 10px;
+    border-radius: 8px;
+    padding: 7px 10px;
     width: 100px;
     margin-top: 5px;
     margin-left: auto;
@@ -309,6 +358,8 @@ body{
     background-color: #0f0f0f;
     color: #fff;
     user-select: none;
+
+    grid-column: 2;
 
     cursor: pointer;
 
@@ -353,17 +404,12 @@ body{
     }
 
     .article{
-        display: flex;
-        flex-direction: column;
-        /* border-top: 1px solid #0000002d; */
-        border-bottom: 1px solid #ffffff2c;
-        padding: 0px 10px 30px 0px;
-        /* box-shadow: 0px 0px 8px #0000002d;
-        border-radius: 10px; */
+        background-color: #141414;
+        border: none;
     }
     .side{
         padding: 20px 20px 10px 20px;
-        border-right: 1px solid #ffffff2c;
+        /* border-right: 1px solid #ffffff2c; */
     
         user-select: none;
     }
@@ -404,19 +450,19 @@ body{
     }
 
     .newPost input{
-        background-color: #2b2b2b;
+        background-color: #141414;
         color: #fff;
         border: none;
     }
     .newPost textarea{
-        background-color: #2b2b2b;
+        background-color: #141414;
         color: #fff;
         border: none;
     }
 
     .newPost button{
-        background-color: #fff;
-        color: #0f0f0f;
+        background-color: #141414;
+        color: #fff;
     }
 }
 
@@ -427,13 +473,16 @@ body{
 @media only screen and (max-width: 600px) {
     .container{
         grid-template-columns: auto;
+        width: auto;
     }
 
     .toTop{
         display: none;
         position: fixed;
-        top: 20px;
+        bottom: 100px;
         right: 20px;
+        opacity: 0.3;
+        /* animation: fadeIn 0.2s ease; */
     }
 
     .menu{
@@ -477,5 +526,10 @@ body{
     
     .view{
         overflow-y: unset;
+        border-left: none;
+    }
+
+    .newPost{
+        width: auto;
     }
 }

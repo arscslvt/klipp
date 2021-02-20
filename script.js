@@ -1,25 +1,29 @@
-var db = firebase.firestore();
-
 navigator.serviceWorker.register('/service-worker.js');
-
-var username = document.getElementById("username");
-
-db.collection("articles").orderBy("date", "desc").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        var data = doc.data();
-        var id = doc.id;
-        getArticles(data, id);
-    });
+$(function(){
+    $(".menu").load("menu.html");
 });
 
-// db.collection("articles").doc()
-//     .onSnapshot((doc) => {
-//         var data = doc.data();
-//         getArticles(data);
-//     });
+var username = document.getElementById("username");
+var articleDiv = document.getElementById("articles");
 
-function getArticles(data, id){
+if (articleDiv.offsetHeight + articleDiv.scrollTop >= articleDiv.scrollHeight) {
+    db.collection("articles").orderBy("date", "desc").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            
+            // doc.data() is never undefined for query doc snapshots
+            var data = doc.data();
+            var id = doc.id;
+            var aut = doc.data().author;
+            // console.log(id);
+            getArticles(data, id, aut);
+        });
+    });
+}
+
+function getArticles(data, id, aut){
+
+    // Creating article div
+
     var article = document.createElement("div");
     var title = document.createElement("span");
     var by = document.createElement("div");
@@ -40,26 +44,56 @@ function getArticles(data, id){
     fromDiv.appendChild(date);
     by.appendChild(fromDiv);
     control.appendChild(like);
+    if(aut == firebase.auth().currentUser.uid){
+        control.appendChild(comment);
+    }
     like.appendChild(likeCount);
-    control.appendChild(comment);
     comment.appendChild(commentCount);
     article.appendChild(by);
     article.appendChild(title);
     article.appendChild(text);
+    article.appendChild(control);
     // article.appendChild(control);
 
-    title.innerText = data.title;
-    author.innerText = data.author;
+    // Checking user
+
+    var docRef = db.collection("users").doc(aut);
+    var dbAuthor;
+    var dbImage;
+
+    // console.log(docRef.id);
+
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            dbAuthor = doc.data().name + " " + doc.data().surname;
+            dbImage = doc.data().userImage;
+            author.innerText = dbAuthor;
+            
+            // Create a reference to the file we want to download
+            if(dbImage != "generic/noUserImage.png"){
+                var storageRef = firebase.storage();    
+                var pathReference = storageRef.ref('/' + aut + '/' + dbImage);
+                //var starsRef = storageRef.child('/' + user + '/profilePicture/' + file.name);
+
+                // Get the download URL
+                pathReference.getDownloadURL().then(function(url) {
+                // Insert url into an <img> tag to "download"
+                    // console.log("userImage: " + doc.data().userImage + "\n Setting image: " + url);
+                    profilePicture.src = url;
+                });
+            }else{
+                profilePicture.src = "assets/noUserImage.png";
+            }
+
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
 
     // Getting Date and time
-    var dateTime = new Date(data.date.toMillis());
-    var day = dateTime.getDate();
-    var month = dateTime.getMonth();
-    var year = dateTime.getFullYear();
-    var hour = dateTime.getHours();
-    var minute = dateTime.getMinutes();
-
-    // console.log("date: "+data.date.toMillis());
     var d = new Date(data.date.toMillis());
     var nowDate = 
         ("0" + d.getDate()).slice(-2) + '-' +
@@ -69,53 +103,120 @@ function getArticles(data, id){
         d.getMinutes()
     ;
 
-    // date.innerText = day + "-" + month + "-" + year + " at " + hour + ":" + minute,
-    date.innerText = nowDate,
-    text.innerText = data.text;
-    likeCount.innerText = data.like;
-    commentCount.innerText = data.like;
+    // Setting innerText
 
-    profilePicture.src = "assets/noUserImage.png";
+    title.innerText = data.title;
+    date.innerText = nowDate;
+    text.innerText = data.text;
+    likeCount.innerText = 0;
+
+    // commentCount.innerText = data.comments;
+
+    // Setting classes
+    
+    control.id = id;
+    profilePicture.classList = "myIndexImage";
     by.classList = "articleBy";
     fromDiv.classList = "articleFrom";
     author.classList = "articleAuthor";
     date.classList = "articleDate";
     article.classList = "article";
     title.classList = "articleTitle";
-    control.classList = "articleControls";
-    like.classList = "controlsLike";
-
-    like.id = "l." + id;
-    like.setAttribute("onclick", "setLike(this.id)");
-
-    comment.classList = "controlsComment";
-    
     text.classList = "articleText";
+    control.classList = "articleControls";
+
+    console.log(like.parentNode.id);
+
+    var nowUser = firebase.auth().currentUser;
+    var docRef = db.collection("articles").doc(like.parentNode.id);
+
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            var length = doc.data().likers.length;
+            for(i=0; i<length; i++){
+                if(doc.data().likers[i] == nowUser.uid){
+                    like.style.backgroundColor = "#FF5151";
+                    like.style.opacity = 1;
+                }else{
+                    like.style.backgroundColor = "#2b2b2b";
+                }
+                docRef.onSnapshot((doc) => {
+                    var nLikes = parseInt(data.likers.length) - 1;
+                    likeCount.innerText = nLikes;
+                });
+            }
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+
+    like.classList = "controlsLike";
+    likeCount.classList = "likeCount";
+    likeCount.id = "like"+id;
+    comment.classList = "controlsTrash";
 
     document.getElementById("articles").appendChild(article);
 }
 
-function setLike(id){
-    var aid = id.slice(2);
+$(document).on('click', '.controlsLike', function (){
 
-    var postRef = db.collection("articles").doc(aid);
+    var nowUser = firebase.auth().currentUser;
 
-    // Set the "capital" field of the city 'DC'
-    return postRef.update({
-        like: firebase.firestore.FieldValue.increment(1)
-    })
-    .then(() => {
-        console.log("Document successfully updated!\n: " + db.collection("articles").get().data().like);
-    })
-    .catch((error) => {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
+    var docRef = db.collection("articles").doc(this.parentNode.id);
+
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            var length = doc.data().likers.length;
+            for(i=0; i<length; i++){
+                if(doc.data().likers[i] == nowUser.uid){
+                    docRef.update({
+                        likers: firebase.firestore.FieldValue.arrayRemove(nowUser.uid)
+                    })
+                    this.style.backgroundColor = "#2b2b2b";
+                    this.style.opacity = 0.5;
+                }else{
+                    docRef.update({
+                        likers: firebase.firestore.FieldValue.arrayUnion(nowUser.uid)
+                    })
+                    this.style.backgroundColor = "#3864FF";
+                    this.style.opacity = 1;
+                }
+                    docRef.onSnapshot((doc) => {
+                        this.innerText = parseInt(doc.data().likers.length) - 1;
+                    });
+            }
+        } else {
+            // doc.data() will be undefined in this case
+            alert("Uhm, seems like post was deleted. Damn.");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
     });
-}
+});
 
 function setComment(id){
-
+    
 }
+
+$(document).on('click', '.controlsTrash', function (){
+    var docRef = db.collection("articles").doc(this.parentNode.id);
+
+    if (confirm('Are you sure you want to delete this post?')) {
+        // Remove
+        docRef.delete().then(() => {
+            console.log("Document successfully deleted!");
+            window.location.reload();
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
+      } else {
+        // Do nothing
+        console.log('Deleting function cancelled.');
+      }
+});
 // STATIC FUNCTIONS
 const toTop = document.getElementById("toTop");
 
@@ -150,69 +251,63 @@ window.addEventListener('beforeinstallprompt', (event) => {
 });
 // LOGIN FUNCTION
 
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        // User is signed in
-        uid = user.uid;
-        console.log("user: " + uid);
+// firebase.auth().onAuthStateChanged((user) => {
+//     if (user) {
+//         // User is signed in
+//         uid = user.uid;
+//         console.log("user: " + uid);
 
-        var docRef = db.collection("users").doc(uid);
+//         var docRef = db.collection("users").doc(uid);
 
-        docRef.get().then((doc) => {
-            if (doc.exists) {
-                username.innerText = doc.data().name;
-                getProfileImage(uid);
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch((error) => {
-            console.log("Error getting user:", error);
-        });
-    } else {
-        window.location.assign("login.html");
+//         docRef.get().then((doc) => {
+//             if (doc.exists) {
+//                 username.innerText = doc.data().name;
+//                 getProfileImage(uid);
+//             } else {
+//                 // doc.data() will be undefined in this case
+//                 console.log("No such document!");
+//             }
+//         }).catch((error) => {
+//             console.log("Error getting user:", error);
+//         });
+//     } else {
+//         window.location.assign("login.html");
       
-    }
-});
+//     }
+// });
 
-document.getElementById("logoutBt").addEventListener("click", function(){
-    firebase.auth().signOut().then(() => {
-        window.location.assign("login.html");
-      }).catch((error) => {
-        alert(error);
-      });
-})
+function readURL(input){
+    // Create a root reference
+    var storageRef = firebase.storage().ref();
 
-function getProfileImage(uid){
-    var storage = firebase.storage();
-    var storageRef = storage.ref();
-    var image;
+    // Create a reference to 'mountains.jpg'
+    var mountainsRef = storageRef.child('mountains.jpg');
 
-    var docRef = db.collection("users").doc(uid);
+    // Create a reference to 'images/mountains.jpg'
+    var mountainImagesRef = storageRef.child('images/mountains.jpg');
 
-    docRef.get().then((doc) => {
-        // console.log("image uid: " + doc.data().userImage);
-        if (doc.exists) {
-            var image = doc.data().userImage;
-            var spaceRef = storageRef.child(image);
+    // While the file names are the same, the references point to different files
+    mountainsRef.name === mountainImagesRef.name;           // true
+    mountainsRef.fullPath === mountainImagesRef.fullPath;   // false
+}
 
-        spaceRef.getDownloadURL().then(function(url) {
-            document.getElementById("userImage").src = url;
+function getUsersImage(ref){
+    // console.log("Setting post image of: " + ref);
 
-            }).catch(function(error) {
-                alert("cannot get image: " + error);
-            });
+    // Create a reference to the file we want to download
+    var storageRef = firebase.storage();    
+    var pathReference = storageRef.ref(ref);
+    var repo;
+    //var starsRef = storageRef.child('/' + user + '/profilePicture/' + file.name);
 
-        } else {
-            // doc.data() will be undefined in this case
-            // alert("Cannot find your user image, try to contact us via email.");
-            alert(doc.data());
-        }
-    }).catch((error) => {
-        console.log("Error getting image:", error);
+    // Get the download URL
+    pathReference.getDownloadURL().then(function(url) {
+    // Insert url into an <img> tag to "download"
+        repo = url;
+        console.log(repo);
     });
 
-    return;
+    return repo;
 }
 
 var newTitle = document.getElementById("title");
@@ -235,6 +330,7 @@ newTitle.addEventListener("focusout", function(){
 
 newPublish.addEventListener("click", function(){
     var user = firebase.auth().currentUser;
+    // console.log("publish by: " + user);
 
     var docRef = db.collection("users").doc(user.uid);
 
@@ -246,20 +342,31 @@ newPublish.addEventListener("click", function(){
                     + currentdate.getMinutes() + ":" 
                     + currentdate.getSeconds();
 
-    console.log(datetime);
+    // console.log(datetime);
 
     docRef.get().then((doc) => {
         if (doc.exists) {
+
+            //myarticles: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+
             var author = doc.data().name + " " + doc.data().surname;
             db.collection("articles").add({
-                author: author,
+                author: user.uid,
                 title: newTitle.value,
                 text: newText.value,
                 like: 0,
+                likers: ["autolk"],
                 date: firebase.firestore.FieldValue.serverTimestamp()
             })
             .then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);
+                
+                var addArray = db.collection("users").doc(user.id);
+
+                // Atomically add a new region to the "regions" array field.
+                addArray.update({
+                    myarticles: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+                });
                 window.location.reload();
             })
             .catch((error) => {
@@ -273,3 +380,102 @@ newPublish.addEventListener("click", function(){
         console.log("Error getting document:", error);
     });
 })
+
+
+function getUserSettings(myImage, myName, mySurname, myBirth, myNat, myCity, myPhone, myBio){
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            var docRef = db.collection("users").doc(user.uid);
+
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    myName.value = doc.data().name;
+                    mySurname.value = doc.data().surname;
+
+                    var storageRef = firebase.storage();    
+                    var pathReference = storageRef.ref('/' + user.uid + '/' + doc.data().userImage);
+                    //var starsRef = storageRef.child('/' + user + '/profilePicture/' + file.name);
+
+                    // Get the download URL
+                    pathReference.getDownloadURL().then(function(url) {
+                        // Insert url into an <img> tag to "download"
+                        
+                        myImage.src = url;
+                    });
+                    if(doc.data().birth){
+                        console.log(doc.data().birth.toMillis());
+                        var parsedTimestamp = new Date(doc.data().birth.toMillis());
+                        console.log(parsedTimestamp);
+                        myBirth.value = parsedTimestamp.getFullYear() + '-' + parsedTimestamp.getMonth() + '-' + parsedTimestamp.getDate();
+                    }
+                    if(doc.data().nat){
+                        myNat.value = doc.data().nat;
+                    }
+                    if(doc.data().city){
+                        myCity.value = doc.data().city;
+                    }
+                    if(doc.data().phone){
+                        myPhone.value = doc.data().phone;
+                    }
+                    if(doc.data().bio){
+                        myBio.value = doc.data().bio;
+                    }
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such settings here!");
+                }
+            }).catch((error) => {
+                console.log("Error getting settings:", error);
+            });
+        } else {
+          // No user is signed in.
+        }
+      });
+}
+
+function setUserSettings(myImage, myName, mySurname, myBirth, myNat, myCity, myPhone, myBio){
+    console.log(myBirth.value);
+    db.collection("users").doc(firebase.auth().currentUser.uid).update({
+        name: myName.value,
+        surname: mySurname.value,
+        birth: firebase.firestore.Timestamp.fromDate(new Date(myBirth.value)),
+        nat: myNat.value,
+        city: myCity.value,
+        phone: myPhone.value,
+        bio: myBio.value
+    })
+    .then(() => {
+        console.log("User settings updated.");
+    })
+    .catch((error) => {
+        console.error("Error writing settings: ", error);
+    });
+    
+}
+
+function setUserImage(myImage){
+    var input = document.createElement("input");
+    input.type = "file";
+
+    var filename;
+
+    input.onchange = e => {
+        files = e.target.files;
+        filename = e.target.files[0].name;
+        reader = new FileReader();
+        reader.onload = function(){
+            myImage.src = reader.result;
+        }
+        reader.readAsDataURL(files[0]);
+        
+        var user = firebase.auth().currentUser.uid;
+        var uploadImage = firebase.storage().ref(user + "/" + filename).put(files[0]);
+
+        db.collection("users").doc(user).update({
+            userImage: filename
+        })
+
+        window.location.reload();
+    }
+    input.click()
+}

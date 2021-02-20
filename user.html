@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="192x192" href="assets/logo.png">
+    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>User dashboard</title>
+</head>
+<body>
+    <div class="home">
+        <div class="heading">
+            <span class="pageTitle">Account settings</span>
+            <span class="pageDesc">Edit your account</span>
+        </div>
+    </div>
+    <div class="settings">
+        <div class="firstPanel">
+            <img src="assets/noUserImage.png" alt="" id="myImage">
+            <span id="changeImage">Change my avatar</span>
+            <div class="name">
+                <input type="text" name="name" id="myName" placeholder="Type your name">
+            <input type="text" name="surname" id="mySurname" placeholder="Type your surname">
+            </div>
+            <div class="userInfo">
+                <input type="date" name="myBirth" id="myBirth" placeholder="Date of birth">
+                <input type="text" name="myNat" id="myNat" placeholder="Nationality">
+                <input type="text" name="myCity" id="myCity" placeholder="City">
+                <input type="number" name="myPhone" id="myPhone" placeholder="+39">
+                <textarea name="myBio" id="myBio" placeholder="Say something about you..."></textarea>
+            </div>
+            <input type="button" value="Save settings" class="saveSettings" id="saveSettings">
+        </div>
+    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-storage.js"></script>
+
+    <script src="userdashboard.js"></script>
+</body>
+</html>

@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="192x192" href="assets/logo.png">
     <link rel="manifest" href="manifest.json">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Klipp</title>
 </head>
 <body>
@@ -19,25 +20,21 @@
                 <span>lipp</span>
             </div>
             <div class="toTop" id="toTop"></div>
+        <div class="menu">
 
-            <div class="menu">
-                <li><div class="homeIcon"></div><span>Home</span></li>
-                <!-- <li class="newKlipp"><div class="commIcon"></div><span>New klipp</span></li> -->
-                <li class="disabled"><div class="bookIcon"></div><span>Bookmarks</span></li>
-                <li><img src="" id="userImage"><span id="username"></span></li>
-                <li id="logoutBt"><div class="upgIcon"></div><span>Logout</span></li>
-            </div>
-            <div class="user"></div>
         </div>
-        <div class="view">
+        <div class="user"></div>
+        </div>
+        <div class="view" id="view">
             <div class="home">
                 <div class="heading">
                     <span class="pageTitle">Home</span>
                     <span class="pageDesc">Latest klipps ↓</span>
                 </div>
                 <div class="newPost">
-                    <input type="text" name="title" id="title" placeholder="Write a new post...">
-                    <textarea type="text" name="text" id="text" placeholder="Type something to say..."></textarea>
+                    <img class="myIndexImage" src="assets/noUserImage.png"></img>
+                    <input type="text" name="title" id="title" placeholder="Write a new post..." maxlength="60">
+                    <textarea type="text" name="text" id="text" placeholder="Type something to say..." maxlength="250"></textarea>
                     <button id="publish">Publish</button>
                 </div>
                 <div class="articles" id="articles">
@@ -57,6 +54,7 @@
 
     <script src="service-worker.js"></script>
 
+    <script src="authstate.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
