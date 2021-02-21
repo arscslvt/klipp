@@ -422,6 +422,7 @@ body{
     .menu{
         background-color: #0f0f0f;
     }
+
     .menu li:hover{
         background: #ffffff2c;
     }
@@ -430,28 +431,24 @@ body{
         background-size: contain;
         width: 15px;
         height: 15px;
-        margin-right: 10px;
     }
     .commIcon{
         background: url("assets/communityDark.svg") no-repeat;
         background-size: contain;
         width: 15px;
         height: 15px;
-        margin-right: 10px;
     }
     .bookIcon{
         background: url("assets/bookmarksDark.svg") no-repeat;
         background-size: contain;
         width: 15px;
         height: 15px;
-        margin-right: 10px;
     }
     .upgIcon{
         background: url("assets/logoutDark.svg") no-repeat;
         background-size: contain;
         width: 15px;
         height: 15px;
-        margin-right: 10px;
         background-position: center;
     }
 
@@ -524,6 +521,10 @@ body{
         border-radius: 10px;
         user-select: none;
         place-content: center;
+        margin-right: 0px;
+    }
+    .menu li:hover{
+        background: transparent;
     }
 
     .menu li span{
