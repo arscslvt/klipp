@@ -270,7 +270,7 @@ body{
 }
 .controlsTrash{
     display: block;
-    padding: 7px;
+    padding: 8px;
     background: url("assets/trash.svg") no-repeat;
     background-size: 10px;
     background-position: center;
