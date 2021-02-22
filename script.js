@@ -35,20 +35,24 @@ function getArticles(data, id, aut){
     var control = document.createElement("div");
     var like = document.createElement("div");
     var likeCount = document.createElement("span");
-    var comment = document.createElement("div");
-    var commentCount = document.createElement("span");
+    var comments = document.createElement("div");
+    var commentsCount = document.createElement("span");
+    var trash = document.createElement("div");
+    var trashCount = document.createElement("span");
 
 
     by.appendChild(profilePicture);
     fromDiv.appendChild(author);
     fromDiv.appendChild(date);
     by.appendChild(fromDiv);
-    control.appendChild(like);
-    if(aut == firebase.auth().currentUser.uid){
-        control.appendChild(comment);
-    }
     like.appendChild(likeCount);
-    comment.appendChild(commentCount);
+    comments.appendChild(commentsCount);
+    trash.appendChild(trashCount);
+    control.appendChild(like);
+    control.appendChild(comments);
+    if(aut == firebase.auth().currentUser.uid){
+        control.appendChild(trash);
+    }
     article.appendChild(by);
     article.appendChild(title);
     article.appendChild(text);
@@ -69,7 +73,6 @@ function getArticles(data, id, aut){
             dbImage = doc.data().userImage;
             author.innerText = dbAuthor;
             
-            // Create a reference to the file we want to download
             if(dbImage != "generic/noUserImage.png"){
                 var storageRef = firebase.storage();    
                 var pathReference = storageRef.ref('/' + aut + '/' + dbImage);
@@ -77,7 +80,6 @@ function getArticles(data, id, aut){
 
                 // Get the download URL
                 pathReference.getDownloadURL().then(function(url) {
-                // Insert url into an <img> tag to "download"
                     // console.log("userImage: " + doc.data().userImage + "\n Setting image: " + url);
                     profilePicture.src = url;
                 });
@@ -110,7 +112,7 @@ function getArticles(data, id, aut){
     text.innerText = data.text;
     likeCount.innerText = 0;
 
-    // commentCount.innerText = data.comments;
+    // trashCount.innerText = data.trashs;
 
     // Setting classes
     
@@ -153,10 +155,16 @@ function getArticles(data, id, aut){
         console.log("Error getting document:", error);
     });
 
+    db.collection("articles").doc(id).collection("comments").get().then(snap => {
+        commentsCount.innerText = snap.size // will return the collection size
+    });
+
     like.classList = "controlsLike";
     likeCount.classList = "likeCount";
     likeCount.id = "like"+id;
-    comment.classList = "controlsTrash";
+    comments.classList = "controlsComments"
+    commentsCount.classList = "likeCount";
+    trash.classList = "controlsTrash";
 
     document.getElementById("articles").appendChild(article);
 }
@@ -217,6 +225,91 @@ $(document).on('click', '.controlsTrash', function (){
         console.log('Deleting function cancelled.');
       }
 });
+
+var nowComment;
+
+$(document).on('click', '.controlsComments', function (){
+    nowComment = this.parentNode.id;
+    document.getElementById("comments").style.display = 'initial';
+    document.getElementById("addPost").style.display = 'none';
+    getComments();
+});
+
+$(document).on('click', '.postComment', function (){
+    var user = firebase.auth().currentUser.uid;
+
+    db.collection("articles").doc(nowComment).collection("comments").add({
+        from: user,
+        text: document.getElementById("commentText").value,
+        time: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+        document.getElementById("commentText").value = "";
+        db.collection("articles").doc(nowComment).collection("comments")
+            .onSnapshot((snapshot) => {
+                getComments();
+            }, (error) => {
+                console.log(error);
+            });
+    })
+    .catch((error) => {
+        console.error("Error adding document: ", error);
+    });
+});
+
+function getComments(){
+    document.getElementById("commentsList").innerHTML = "";
+    var docRef = db.collection("articles").doc(nowComment).collection("comments").orderBy("time", "desc").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            var box = document.createElement("div");
+            box.classList = "commentBox";
+            var fromHead = document.createElement("div");
+            fromHead.classList = "commentFromHead";
+            var fromIcon = document.createElement("img");
+            fromIcon.classList = "commentFromImage";
+            var from = document.createElement("span");
+            from.classList = "commentFrom";
+            var text = document.createElement("span");
+            text.classList = "commentText";
+
+            var docRef = db.collection("users").doc(doc.data().from);
+            var fromuid = doc.data().from;
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    from.innerText = doc.data().name + " " + doc.data().surname;
+                    if(doc.data().userImage != "generic/noUserImage.png"){
+                        var storageRef = firebase.storage();    
+                        var pathReference = storageRef.ref('/' + fromuid + '/' + doc.data().userImage);
+                        //var starsRef = storageRef.child('/' + user + '/profilePicture/' + file.name);
+        
+                        // Get the download URL
+                        pathReference.getDownloadURL().then(function(url) {
+                            // console.log("userImage: " + doc.data().userImage + "\n Setting image: " + url);
+                            fromIcon.src = url;
+                        });
+                    }else{
+                        profilePicture.src = "assets/noUserImage.png";
+                    }
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+
+            text.innerText = doc.data().text;
+
+            fromHead.appendChild(fromIcon)
+            fromHead.appendChild(from)
+            box.appendChild(fromHead);
+            box.appendChild(text);
+
+            document.getElementById("commentsList").appendChild(box);
+        });
+    });;
+}
 // STATIC FUNCTIONS
 const toTop = document.getElementById("toTop");
 
@@ -246,35 +339,7 @@ window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
   // Stash the event so it can be triggered later.
   installPromptEvent = event;
-  // Update the install UI to notify the user app can be installed
-//   document.querySelector('#install-button').disabled = false;
 });
-// LOGIN FUNCTION
-
-// firebase.auth().onAuthStateChanged((user) => {
-//     if (user) {
-//         // User is signed in
-//         uid = user.uid;
-//         console.log("user: " + uid);
-
-//         var docRef = db.collection("users").doc(uid);
-
-//         docRef.get().then((doc) => {
-//             if (doc.exists) {
-//                 username.innerText = doc.data().name;
-//                 getProfileImage(uid);
-//             } else {
-//                 // doc.data() will be undefined in this case
-//                 console.log("No such document!");
-//             }
-//         }).catch((error) => {
-//             console.log("Error getting user:", error);
-//         });
-//     } else {
-//         window.location.assign("login.html");
-      
-//     }
-// });
 
 function readURL(input){
     // Create a root reference
@@ -390,6 +455,10 @@ newPublish.addEventListener("click", function(){
     });
 })
 
+document.getElementById("closeComments").addEventListener("click", function(){
+    document.getElementById("comments").style.display = 'none';
+    document.getElementById("commentsList").innerHTML = "";
+})
 
 function getUserSettings(myImage, myName, mySurname, myBirth, myNat, myCity, myPhone, myBio){
     firebase.auth().onAuthStateChanged(function(user) {
