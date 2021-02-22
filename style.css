@@ -295,7 +295,7 @@ body{
     opacity: 1;
 }
 
-.newPost{
+/* .newPost{
     width: 60%;
     margin-top: 30px;
     display: grid;
@@ -303,6 +303,76 @@ body{
     grid-template-rows: auto auto auto;
     grid-template-columns: 45px auto;
     align-items: center;
+} */
+
+.addPost{
+    margin-left: auto;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    background-color: #3864FF;
+    color: #fff;
+    font: 600 14px 'Raleway'; 
+    margin-top: 20px;
+    width: 120px;
+    padding: 7px;
+
+    cursor: pointer;
+
+    transition: 0.1s ease;
+}
+
+.addPost:hover{
+    opacity: 0.8;
+}
+
+.newPostBack{
+    display: none;
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #29292991;
+    backdrop-filter: blur(2px);
+    
+    /* transition: 0.2s ease; */
+}
+
+.newPost{
+    z-index: 10;
+    width: 700px;
+    position: absolute;
+    bottom: 3%;
+    left: 50%;
+
+    transform: translate(-50%, -0%);
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+
+    display: grid;
+    gap: 10px;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 45px auto;
+    align-items: center;
+
+    padding: 20px;
+    border-radius: 10px;
+
+    /* animation: fadeUp 0.3s ease-in-out; */
+}
+
+@keyframes fadeUp{
+    from{
+        opacity: 0;
+        bottom: -50%;
+    }
+    to{
+        opacity: 1;
+        bottom: 3%
+    }
 }
 
 .userImage{
@@ -324,7 +394,8 @@ body{
 
 .newPost input{
     outline: none;
-    border: 1px solid #88888865;
+    /* border: 1px solid #88888865; */
+    border: none;
     border-radius: 10px;
     padding: 9px 9px;
     font: 600 16px 'Raleway'; 
@@ -332,13 +403,14 @@ body{
 }
 
 .newPost textarea{
-    display: none;
+    /* display: none; */
     outline: none;
-    border: 1px solid #88888865;
+    /* border: 1px solid #88888865; */
+    border: none;
     border-radius: 10px;
     padding: 5px 5px;
     resize: none;
-    height: 60px;
+    height: 150px;
     grid-column-end: 3;
 
     font: 500 14px 'Raleway'; 
@@ -347,7 +419,7 @@ body{
 }
 
 .newPost button{
-    display: none;
+    /* display: none; */
     outline: none;
     border: none;
     border-radius: 8px;
@@ -371,6 +443,18 @@ body{
     opacity: 0.7;
 }
 
+.newPost .closePost{
+    position: absolute;
+    top: -16px;
+    right: -10px;
+    border: none;
+    outline: none;
+    width: 40px;
+    height: 40px;
+    background: url("assets/close.svg");
+    background-size: contain;
+}
+
 @keyframes fadeIn{
     from{
         opacity: 0;
@@ -379,6 +463,16 @@ body{
     to{
         opacity: 1;
         margin-top: 0px;
+    }
+}
+@keyframes fadeOut{
+    from{
+        opacity: 1;
+        bottom: 3%;
+    }
+    to{
+        opacity: 0;
+        bottom: -3%;
     }
 }
 
@@ -537,6 +631,26 @@ body{
     }
 
     .newPost{
-        width: auto;
+        z-index: 10;
+        width: 80vw;
+        position: absolute;
+        bottom: 3%;
+        left: 50%;
+    
+        transform: translate(-50%, -0%);
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+    
+        display: grid;
+        gap: 10px;
+        grid-template-rows: auto auto auto;
+        grid-template-columns: 45px auto;
+        align-items: center;
+    
+        padding: 20px;
+        border-radius: 10px;
+    
+        /* animation: fadeUp 0.3s ease-in-out; */
     }
 }

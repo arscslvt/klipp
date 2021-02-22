@@ -30,13 +30,18 @@
                 <div class="heading">
                     <span class="pageTitle">Home</span>
                     <span class="pageDesc">Latest klipps ↓</span>
+                    <button class="addPost" id="addPost">+ New post</button>
                 </div>
-                <div class="newPost">
-                    <img class="myIndexImage" src="assets/noUserImage.png"></img>
-                    <input type="text" name="title" id="title" placeholder="Write a new post..." maxlength="60">
-                    <textarea type="text" name="text" id="text" placeholder="Type something to say..." maxlength="250"></textarea>
-                    <button id="publish">Publish</button>
+                <div class="newPostBack" id="newPost">
+                    <div class="newPost">
+                        <button class="closePost" id="closePost"></button>
+                        <img class="myIndexImage" src="assets/noUserImage.png"></img>
+                        <input type="text" name="title" id="title" placeholder="Choose a title" maxlength="60">
+                        <textarea type="text" name="text" id="text" placeholder="Type something to say..." maxlength="250"></textarea>
+                        <button id="publish">Publish</button>
+                    </div>
                 </div>
+                
                 <div class="articles" id="articles">
                     <!-- LIST OF LATEST ARTICLES BY FIREBASE -->
                 </div>

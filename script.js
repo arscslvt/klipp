@@ -310,9 +310,17 @@ function getUsersImage(ref){
     return repo;
 }
 
+var addPost = document.getElementById("addPost")
+var newPost = document.getElementById("newPost")
 var newTitle = document.getElementById("title");
 var newText = document.getElementById("text");
 var newPublish = document.getElementById("publish");
+var newClose = document.getElementById("closePost");
+
+addPost.addEventListener("click", function(){
+    newPost.style.animation = 'fadeIn 0.2s ease-in-out';
+    newPost.style.display = 'initial';
+})
 
 newTitle.addEventListener("click", function(){
     newTitle.setAttribute("placeholder", "Choose a title");
@@ -320,12 +328,11 @@ newTitle.addEventListener("click", function(){
     newPublish.style.display = 'initial';
 })
 
-newTitle.addEventListener("focusout", function(){
-    if(newTitle.value == ""){
-        newTitle.setAttribute("placeholder", "Write a new post...");
-        newText.style.display = 'none';
-        newPublish.style.display = 'none';
-    }
+newClose.addEventListener("click", function(){
+    newPost.style.animation = 'fadeOut 0.2s ease-in-out';
+    setTimeout(function(){
+        newPost.style.display = 'none';
+    }, 180)
 })
 
 newPublish.addEventListener("click", function(){
