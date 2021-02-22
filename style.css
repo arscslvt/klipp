@@ -585,6 +585,10 @@ body{
         width: auto;
     }
 
+    .articles{
+        padding-bottom: 50px;
+    }
+
     .toTop{
         display: none;
         position: fixed;
