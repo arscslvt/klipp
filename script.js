@@ -320,6 +320,7 @@ var newClose = document.getElementById("closePost");
 addPost.addEventListener("click", function(){
     newPost.style.animation = 'fadeIn 0.2s ease-in-out';
     newPost.style.display = 'initial';
+    addPost.style.display = 'none';
 })
 
 newTitle.addEventListener("click", function(){
@@ -330,6 +331,7 @@ newTitle.addEventListener("click", function(){
 
 newClose.addEventListener("click", function(){
     newPost.style.animation = 'fadeOut 0.2s ease-in-out';
+    addPost.style.display = 'initial';
     setTimeout(function(){
         newPost.style.display = 'none';
     }, 180)

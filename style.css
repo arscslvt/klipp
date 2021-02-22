@@ -306,15 +306,17 @@ body{
 } */
 
 .addPost{
-    margin-left: auto;
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
     border: none;
     border-radius: 10px;
     outline: none;
-    background-color: #3864FF;
-    color: #fff;
-    font: 600 14px 'Raleway'; 
+    background: url("assets/newPost.svg") no-repeat;
+    background-size: contain;
     margin-top: 20px;
-    width: 120px;
+    width: 50px;
+    height: 50px;
     padding: 7px;
 
     cursor: pointer;
@@ -620,10 +622,13 @@ body{
         border-radius: 10px;
         user-select: none;
         place-content: center;
-        margin-right: 0px;
     }
     .menu li:hover{
         background: transparent;
+    }
+
+    .menu li div{
+        margin-right: 0px;
     }
 
     .menu li span{
@@ -656,5 +661,26 @@ body{
         border-radius: 10px;
     
         /* animation: fadeUp 0.3s ease-in-out; */
+    }
+
+    .addPost{
+        z-index: 10;
+        position: fixed;
+        bottom: 4%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: none;
+        border-radius: 10px;
+        outline: none;
+        background: url("assets/newPost.svg") no-repeat;
+        background-size: contain;
+        margin-top: 20px;
+        width: 40px;
+        height: 40px;
+        padding: 7px;
+    
+        cursor: pointer;
+    
+        transition: 0.1s ease;
     }
 }
