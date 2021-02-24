@@ -6,18 +6,33 @@ $(function(){
 var username = document.getElementById("username");
 var articleDiv = document.getElementById("articles");
 
-if (articleDiv.offsetHeight + articleDiv.scrollTop >= articleDiv.scrollHeight) {
-    db.collection("articles").orderBy("date", "desc").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            
-            // doc.data() is never undefined for query doc snapshots
-            var data = doc.data();
-            var id = doc.id;
-            var aut = doc.data().author;
-            // console.log(id);
-            getArticles(data, id, aut);
-        });
-    });
+var lastDoc = null;
+
+window.addEventListener('DOMContentLoaded', () => loadArticles())
+
+const loadArticles = async () => {
+    console.log("load");
+
+    const ref = db.collection('articles')
+        .orderBy('date', 'desc')
+        // .orderBy('date', 'desc')
+        // .startAfter(lastDoc || 0)
+        // .limit(6);
+
+    const data = await ref.get();
+
+    data.docs.forEach(doc => {
+        const post = doc.data();
+
+        var data = post;
+        var id = doc.id;
+        var aut = post.author;
+        // console.log(id);
+        getArticles(data, id, aut);
+    })
+    
+    lastDoc = data.docs[data.docs.length - 1];
+    console.log(lastDoc);
 }
 
 function getArticles(data, id, aut){
@@ -127,8 +142,6 @@ function getArticles(data, id, aut){
     text.classList = "articleText";
     control.classList = "articleControls";
 
-    console.log(like.parentNode.id);
-
     var nowUser = firebase.auth().currentUser;
     var docRef = db.collection("articles").doc(like.parentNode.id);
 
@@ -205,9 +218,9 @@ $(document).on('click', '.controlsLike', function (){
     });
 });
 
-function setComment(id){
-    
-}
+// document.getElementById("loadMore").addEventListener("click", function(){
+//     loadArticles();
+// })
 
 $(document).on('click', '.controlsTrash', function (){
     var docRef = db.collection("articles").doc(this.parentNode.id);
@@ -457,6 +470,7 @@ newPublish.addEventListener("click", function(){
 
 document.getElementById("closeComments").addEventListener("click", function(){
     document.getElementById("comments").style.display = 'none';
+    document.getElementById("addPost").style.display = 'initial';
     document.getElementById("commentsList").innerHTML = "";
 })
 

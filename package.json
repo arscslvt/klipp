@@ -1,0 +1,19 @@
+{
+  "name": "klipp",
+  "version": "2.0.0",
+  "description": "social network for small groups",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arscslvt/klipp.git"
+  },
+  "author": "Salvatore Aresco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arscslvt/klipp/issues"
+  },
+  "homepage": "https://github.com/arscslvt/klipp#readme"
+}
